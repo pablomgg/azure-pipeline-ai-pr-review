@@ -1,10 +1,10 @@
 {
-  "id": "962a2b6e-0555-477b-b8dc-40a7af3f0c8b",
+  "id": "2ece7e88-1566-4e4b-ba5d-ed15f9b23d97",
   "name": "AIPullRequestReview",
   "friendlyName": "AI PR Review",
   "description": "This task use OpenAi API to review and leave comments on PullRequests",
-  "author": "Jacques Saunders",
-  "helpMarkDown": "[More Information](https://github.com/97saundersj/azure-pipeline-ai-pr-review)",
+  "author": "Pablo M Gracioli",
+  "helpMarkDown": "[More Information](https://github.com/pablomgg/azure-pipeline-ai-pr-review)",
   "category": "Utility",
   "visibility": [
     "Build"
@@ -13,7 +13,7 @@
   "version": {
     "Major": "0",
     "Minor": "1",
-    "Patch": "9"
+    "Patch": "6"
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "AIPullRequestReview $(message)",
@@ -37,7 +37,7 @@
         "gpt-3.5-turbo": "GPT 3.5 Turbo",
         "gpt-3.5-turbo-16k": "GPT 3.5 Turbo 16k"
       },
-      "helpMarkDown": "The OpenAI model to use. not used if you use Azure OpenAI. if no model is selected, the GPT 3.5 Turbo model is used."
+      "helpMarkDown": "The OpenAI model to use. not used if you use Azure OpenAI. if no model is selected, the GPT 4 model is used."
     },
     {
       "name": "aoi_endpoint",

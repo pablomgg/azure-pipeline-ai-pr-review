@@ -2,7 +2,7 @@ import * as tl from "azure-pipelines-task-lib/task";
 import { Configuration, OpenAIApi } from 'openai';
 import { deleteExistingComments } from './pr';
 import { reviewFile } from './review';
-import { getTargetBranchName } from './utils';
+import {getTargetBranchName, getVariablesAzurePipelineAndPrint} from './utils';
 import { getChangedFiles } from './git';
 import https from 'https';
 
@@ -41,6 +41,8 @@ async function run() {
       tl.setResult(tl.TaskResult.Failed, 'No target branch found!');
       return;
     }
+
+    getVariablesAzurePipelineAndPrint();
 
     const filesNames = await getChangedFiles(targetBranch);
 
