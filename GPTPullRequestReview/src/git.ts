@@ -3,8 +3,9 @@ import * as tl from "azure-pipelines-task-lib/task";
 import binaryExtensions from 'binary-extensions';
 import { getFileExtension } from './utils';
 
+const patch = tl.getVariable('System.DefaultWorkingDirectory');
 const gitOptions: Partial<SimpleGitOptions> = {
-  baseDir: `${tl.getVariable('System.DefaultWorkingDirectory')}`,
+  baseDir: patch,
   binary: 'git'
 };
 

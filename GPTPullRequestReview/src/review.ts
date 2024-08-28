@@ -5,10 +5,13 @@ import { addCommentToPR } from './pr';
 import { Agent } from 'https';
 import * as tl from "azure-pipelines-task-lib/task";
 
-export async function reviewFile(targetBranch: string, fileName: string, httpsAgent: Agent, apiKey: string, openai: OpenAIApi | undefined, aoiEndpoint: string | undefined) {
+export async function reviewFile(targetBranch: string,
+                                 fileName: string, httpsAgent: Agent,
+                                 apiKey: string, openai: OpenAIApi | undefined,
+                                 aoiEndpoint: string | undefined) {
   console.log(`\nStart reviewing ${fileName} ...`);
 
-  const defaultOpenAIModel = 'gpt-3.5-turbo';
+  const defaultOpenAIModel = 'gpt-4';
   const patch = await git.diff([targetBranch, '--', fileName]);
 
   const instructions = tl.getInput('ai_instructions')
@@ -46,7 +49,7 @@ export async function reviewFile(targetBranch: string, fileName: string, httpsAg
           max_tokens: 500,
           messages: [{
             role: "user",
-            content: prompt
+            content: `${instructions}\n, patch : ${patch}}`
           }]
         })
       });
@@ -59,7 +62,7 @@ export async function reviewFile(targetBranch: string, fileName: string, httpsAg
     if (choices && choices.length > 0) {
       const review = choices[0].message?.content as string;
 
-      if (review.trim() !== "No feedback.") {
+      if (review.trim() !== "No feedback." && review.trim() !== "Sem feedback.") {
         await addCommentToPR(fileName, review, httpsAgent);
       }
     }

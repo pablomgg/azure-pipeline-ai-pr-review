@@ -105,8 +105,20 @@ dist
 
 .taskkey
 
+# IDE files
+*.vsix
+.idea
+.vscode
+.c9
+.swp
+.sublime
+
 **/.DS_Store
+Thumbs.db
+Desktop.ini
 
 *.vsix
 
+# The purpose of the following files is not yet documented.
 *.js
+.taskkey
