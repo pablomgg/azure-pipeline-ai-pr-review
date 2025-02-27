@@ -14,13 +14,15 @@ export async function reviewFile(targetBranch: string,
   const defaultOpenAIModel = 'gpt-4';
   const patch = await git.diff([targetBranch, '--', fileName]);
 
-  const instructions = tl.getInput('ai_instructions')
+  const instructions = tl.getInput('ai_instructions');
+
+  const maxTokens = parseInt(tl.getInput('ai_instructions') || '500', 10);
 
   try {
     let choices: any;
 
     if (openai) {
-
+      console.log(`maxTokens: ${maxTokens}`);
       console.log(`Sending changes to OpenAI:`)
       console.log(patch)
 
@@ -36,7 +38,7 @@ export async function reviewFile(targetBranch: string,
             content: patch
           }
         ],
-        max_tokens: 500
+        max_tokens: maxTokens
       });
 
       choices = response.data.choices
@@ -46,7 +48,7 @@ export async function reviewFile(targetBranch: string,
         method: 'POST',
         headers: { 'api-key': `${apiKey}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          max_tokens: 500,
+          max_tokens: maxTokens,
           messages: [{
             role: "user",
             content: `${instructions}\n, patch : ${patch}}`

@@ -56,6 +56,22 @@
       "helpMarkDown": "Select this option to support self-signed certificate."
     },
     {
+      "name": "maxTokens",
+      "type": "number",
+      "label": "Max number of tokens allowed per request",
+      "defaultValue": 500,
+      "required": true,
+      "helpMarkDown": "Specify the maximum number of tokens for each interaction with the GPT API. This number includes both the request and the response from the API. If exceeded, it may result in a partial or missing comment in the PR window."
+    },
+    {
+      "name": "deletePreviousComments",
+      "type": "boolean",
+      "label": "Delete previous comments",
+      "defaultValue": true,
+      "required": false,
+      "helpMarkDown": "If checked, the task will delete previous comments made by the AI before adding new ones. If unchecked, previous comments will remain."
+    },
+    {
       "name": "ai_instructions",
       "type": "multiLine",
       "label": "AI Instruction Prompt",
