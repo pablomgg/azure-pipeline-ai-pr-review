@@ -46,7 +46,11 @@ async function run() {
 
     const filesNames = await getChangedFiles(targetBranch);
 
-    await deleteExistingComments(httpsAgent);
+    const deletePreviousComments = tl.getBoolInput('deletePreviousComments', true);
+
+    if (deletePreviousComments) {
+      await deleteExistingComments(httpsAgent);
+    }
 
     for (const fileName of filesNames) {
       await reviewFile(targetBranch, fileName, httpsAgent, apiKey, openai, aoiEndpoint)
